@@ -1,8 +1,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import routes from './routes'
+import FastClick from 'fastclick'
 import 'normalize.css'
 Vue.use(VueRouter)
+
+//解决点透问题
+FastClick.attach(document.body);
 
 // 实例化路由
 const router = new VueRouter({

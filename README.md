@@ -1,6 +1,8 @@
 # vuejscn
 
-> A Vue.js project
+> A cnode webapp with vue2.0
+
+尚在开发中，目前已完成欢迎页及首页开发...
 
 ## Build Setup
 

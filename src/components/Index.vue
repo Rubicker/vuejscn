@@ -8,7 +8,7 @@
 
     export default{
         name: 'index',
-        components:{
+        components: {
             welcome
         },
         mounted(){

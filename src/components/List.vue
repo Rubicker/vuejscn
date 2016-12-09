@@ -1,13 +1,15 @@
 <template>
     <div class="page">
-        <nav-head></nav-head>
+        <nav-head :midTitle="getTabs(searchInfo.tab)"></nav-head>
         <ul>
             <li v-for="item in topics" key="item.id" >
                 <router-link :to="{name: 'topic', params: {id: item.id}}">
-                    <div :class="item.top? 'top':(item.good? 'good':item.tab)" v-text="getTabs(item.tab, item.good, item.top)"></div>
+                    <div :class="item.top? 'top':(item.good? 'good':item.tab)" 
+                         v-text="getTabs(item.tab, item.good, item.top)">
+                    </div>
                     <h4 v-text="item.title"></h4>
                     <div class="info">
-                        <img :src=item.author.avatar_url alt="" class="avatar">
+                        <img :src=item.author.avatar_url alt="" class="avatar" keep-alive>
                         <span v-text="item.author.loginname" class="author"></span>
                     </div>   
                 </router-link>
@@ -81,18 +83,38 @@
                     case 'share':
                         return '分享';
                         break;
+                    case 'all':
+                        return '全部';
+                        break;
                     default:
                         return '未分类';
                         break;
                 }
             }
+        },
+        watch: {
+            '$route' (to, from) {
+                // 如果是当前页面切换分类的情况
+                if (to.query && to.query.tab) {
+                    this.searchInfo.tab = to.query.tab;
+                }
+                this.searchInfo.limit = 20;
+                this.getTopics();
+            }
         }
     }
 </script>
 <style scoped>
+    ul {
+        top: 40px;
+    }
     li {
         padding: 10px;
         border-bottom:1px solid #ccc;
+    }
+
+    li:first-child {
+        margin-top: 40px;
     }
 
     /*处理载入画面消失后出现的横线问题*/
